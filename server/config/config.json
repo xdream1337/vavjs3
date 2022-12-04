@@ -1,0 +1,24 @@
+{
+  "development": {
+    "username": "newuser",
+    "password": "rootroot123!",
+    "database": "express",
+    "host": "localhost",
+    "dialect": "mysql",
+    "port": 3306
+  },
+  "test": {
+    "username": "newuser",
+    "password": "rootroot123!",
+    "database": "express",
+    "host": "localhost",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "newuser",
+    "password": "rootroot123!",
+    "database": "express",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
