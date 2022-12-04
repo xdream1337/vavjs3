@@ -5,14 +5,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             increment: true
         },
-        text: {
+        type: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        measurement_id: {
-            type: DataTypes.INTEGER,
-            allowNull: true,
+        method: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     });
+
     return Methods;
 };

@@ -1,21 +1,19 @@
+
 module.exports = (sequelize, DataTypes) => {
+
   const Users = sequelize.define("Users", {
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      increment: true
-    },
-    date: {
+    birth_date: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    method: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
     },
-    value: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    first_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING,
@@ -30,6 +28,25 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   });
+
+  Users.associate = (models) => {
+    Users.hasMany(models.LowPressure, {
+      onDelete: "cascade",
+    });
+  };
+
+  Users.associate = (models) => {
+    Users.hasMany(models.Weights, {
+      onDelete: "cascade",
+    });
+  };
+
+  Users.associate = (models) => {
+    Users.hasMany(models.HighPressure, {
+      onDelete: "cascade",
+    });
+  };
+
 
   return Users;
 };
