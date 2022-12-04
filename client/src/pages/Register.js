@@ -12,12 +12,20 @@ function Register () {
     const [birthday, setBirthday] = useState("");
     const [firstName, setFirstName] = useState("");
     const [password, setPassword] = useState("");
-    const [age, setAge] = useState("");
-    const [weight, setHeight] = useState("");
+    const [height, setHeight] = useState("");
 
-    const register = (data) => {
-        axios.post("http://localhost:8080/users/register", data).then(() => {
-            console.log(data);
+    const register = (event) => {
+        event.preventDefault();
+        const data = {
+            first_name: firstName,
+            email: email,
+            password: password,
+            birth_date: birthday,
+            height: height,
+        }
+        axios.post("http://localhost:8080/auth/register", data).then(() => {
+            alert('Ucet bol vytvoreny!');
+            window.location.href = '/dashboard';
         });
     };
 
@@ -33,28 +41,28 @@ function Register () {
                         }} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Group className="mb-3" controlId="formBasicName">
                         <Form.Label>Meno</Form.Label>
                         <Form.Control type="text" placeholder="Meno" name="email" onChange={(event) => {
                             setFirstName(event.target.value);
                         }} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Group className="mb-3" controlId="formBasicDate">
+                        <Form.Label>Vek</Form.Label>
+                        <Form.Control type="date" placeholder="yyyy/mm/dd" name="birth_date" onChange={(event) => {
+                            setBirthday(event.target.value);
+                        }} />
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formBasicPass">
                         <Form.Label>Heslo</Form.Label>
                         <Form.Control type="password" placeholder="Heslo" name="password" onChange={(event) => {
                             setPassword(event.target.value);
                         }} />
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formBasicName">
-                        <Form.Label>Vek</Form.Label>
-                        <Form.Control type="number" placeholder="Vek" name="password" onChange={(event) => {
-                            setHeight(event.target.value);
-                        }} />
-                    </Form.Group>
-
-                    <Form.Group className="mb-3" controlId="formBasicName">
+                    <Form.Group className="mb-3" controlId="formBasicHeight">
                         <Form.Label>Výška</Form.Label>
                         <Form.Control type="number" placeholder="Výška" name="password" onChange={(event) => {
                             setHeight(event.target.value);

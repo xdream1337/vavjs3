@@ -1,7 +1,10 @@
 import React from "react";
-import { AuthContext } from "../helpers/AuthContext";
-import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
+import Dashboard from "../pages/Dashboard";
+
 
 import axios from "axios";
 import Container from 'react-bootstrap/Container';
@@ -14,24 +17,21 @@ import Row from 'react-bootstrap/Row';
 
 function Login () {
 
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { setAuthState } = useContext(AuthContext);
 
-    const [authState, setAuthState] = useState({
-        first_name: "",
-        id: 0,
-        status: false,
-    });
 
-    const login = () => {
-        const data = { username: username, password: password };
-        axios.post("http://localhost:3001/auth/login", data).then((response) => {
+    const login = (event) => {
+        event.preventDefault();
+        const data = { password: password, email: email };
+        axios.post("http://localhost:8080/auth/login", data).then((response) => {
             if (response.data.error) {
                 alert(response.data.error);
             } else {
-                localStorage.setItem("accessToken", response.data.token);
+                localStorage.setItem("auth_token", response.data.auth_token);
                 setAuthState({
-                    username: response.data.username,
+                    email: response.data.email,
                     id: response.data.id,
                     status: true,
                 });
@@ -50,7 +50,7 @@ function Login () {
                                 <Form.Group className="mb-3" controlId="formBasicEmail">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control type="email" placeholder="Email" name="email" onChange={(event) => {
-                                        setUsername(event.target.value);
+                                        setEmail(event.target.value);
                                     }} />
                                 </Form.Group>
 
@@ -75,7 +75,8 @@ function Login () {
                 </>
             ) : (
                 <>
-                    <Link to="/dashboard" />
+                    <Navigate to="/dashboard" />
+
                 </>
             )}
         </div>
