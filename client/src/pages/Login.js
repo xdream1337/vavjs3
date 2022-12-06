@@ -1,10 +1,8 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../helpers/AuthContext";
-import Dashboard from "../pages/Dashboard";
-
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../helpers/Auth";
 
 import axios from "axios";
 import Container from 'react-bootstrap/Container';
@@ -19,8 +17,11 @@ function Login () {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { setAuthState } = useContext(AuthContext);
 
+
+    const { user, setUser } = useAuth();
+
+    console.log(user);
 
     const login = (event) => {
         event.preventDefault();
@@ -30,18 +31,17 @@ function Login () {
                 alert(response.data.error);
             } else {
                 localStorage.setItem("auth_token", response.data.auth_token);
-                setAuthState({
-                    email: response.data.email,
-                    id: response.data.id,
-                    status: true,
-                });
+                localStorage.setItem("user", JSON.stringify(response.data.user));
+                setUser(response.data.user);
+                if (response.data.user.first_name === "admin") localStorage.setItem("role", 'admin');
+                <Navigate to="/methods" />
             }
         });
     };
 
     return (
         <div>
-            {!authState.status ? (
+            {!user ? (
                 <>
                     <Container className="mt-5 col-12 col-md-6 cl-md-offset-3">
                         <Row>
@@ -69,14 +69,13 @@ function Login () {
 
                     </Container>
 
-                    <Container className="mt-5">
+                    <Container className="mt-5 text-center">
                         Pokiaľ sa chcete registrovať, <Link to="/register">zaregistrujte sa.</Link>
                     </Container>
                 </>
             ) : (
                 <>
-                    <Navigate to="/dashboard" />
-
+                    <Navigate to="/methods" />
                 </>
             )}
         </div>

@@ -1,11 +1,15 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
-import { AuthContext } from "../helpers/AuthContext";
+import { AuthContext } from "../helpers/Auth";
 function Home () {
 
 
-    const { authState, setAuthState } = React.useContext(AuthContext);
+    const [authState, setAuthState] = useState({
+        email: "",
+        id: 0,
+        status: false,
+    });
 
     useEffect(() => {
         axios

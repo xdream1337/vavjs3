@@ -25,7 +25,7 @@ function Register () {
         }
         axios.post("http://localhost:8080/auth/register", data).then(() => {
             alert('Ucet bol vytvoreny!');
-            window.location.href = '/dashboard';
+            navigator('/dashboard');
         });
     };
 
