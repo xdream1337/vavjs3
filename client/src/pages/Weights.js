@@ -84,7 +84,20 @@ function Weights () {
     }
 
     function filter () {
-        return '';
+        const data = { method: weightMethod, user_id: user.id, timefrom: timeFrom, timeto: timeTo };
+        axios.post("http://localhost:8080/weight/filter", {
+            data: data,
+            headers: {
+                auth_token: localStorage.getItem("auth_token"),
+            },
+        }).then((response) => {
+            if (response.data.error) {
+                alert(response.data.error);
+            } else {
+                setWeights(response.data.weights);
+                showWeight(false);
+            }
+        });
     }
 
     return (
@@ -100,11 +113,11 @@ function Weights () {
                     <table>
                         <tbody>
                             <tr className='filter'>
-                                <td><input type="datetime-local" name="time-from" value={timeFrom} onChange={e => setTimeFrom(e.target.value)} /></td>
-                                <td><input type="datetime-local" name="time-to" value={timeTo} onChange={e => setTimeTo(e.target.value)} /></td>
+                                <td><input type="datetime-local" name="timestamp-weight-from" value={timeFrom} onChange={e => setTimeFrom(e.target.value)} /></td>
+                                <td><input type="datetime-local" name="timestamp-weight-to" value={timeTo} onChange={e => setTimeTo(e.target.value)} /></td>
                                 <td><select value={methodFilter} onChange={e => setMethodFilter(e.target.value)}>
                                     <option value="">Všetky</option>
-                                    {weightMethods && weightMethods > 0 ? (weightMethods.map((method, index) => {
+                                    {weightMethods && weightMethods.length > 0 ? (weightMethods.map((method, index) => {
                                         return <option key={index} value={method.name}>{method.name}</option>
                                     })) : (null)}
                                 </select></td>
@@ -131,7 +144,7 @@ function Weights () {
                                     <td><input type="number" name="weight" id="weight" value={weight} onChange={e => setWeight(e.target.value)} /></td>
                                     <td><select name="method" id="method" onChange={e => setWeightMethod(e.target.value)}>
                                         <option value="">Žiadna</option>
-                                        {weightMethods && weightMethods > 0 ? (weightMethods.map((method, index) => {
+                                        {weightMethods && weightMethods.length > 0 ? (weightMethods.map((method, index) => {
                                             return <option key={index} value={method.name}>{method.name}</option>
                                         })) : (null)}
                                     </select></td>
