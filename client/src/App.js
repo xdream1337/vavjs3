@@ -36,9 +36,9 @@ function App () {
         <Route path="/register" element={<Register />} />
         <Route index path="/" element={<Login />} />
 
+        <Route path="/methods" element={<Methods />} />
 
         <Route element={<RequireAuth />}>
-          <Route path="/methods" element={<Methods />} />
           <Route path="/dashboard" element={<Home />} />
         </Route>
 

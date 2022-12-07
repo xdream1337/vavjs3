@@ -19,34 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    age: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     height: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
   });
-
-  Users.associate = (models) => {
-    Users.hasMany(models.LowPressure, {
-      onDelete: "cascade",
-    });
-  };
-
-  Users.associate = (models) => {
-    Users.hasMany(models.Weights, {
-      onDelete: "cascade",
-    });
-  };
-
-  Users.associate = (models) => {
-    Users.hasMany(models.HighPressure, {
-      onDelete: "cascade",
-    });
-  };
-
 
   return Users;
 };

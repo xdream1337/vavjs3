@@ -1,25 +1,22 @@
 module.exports = (sequelize, DataTypes) => {
-    const HighPressure = sequelize.define("HighPressure", {
+    const Pressure = sequelize.define("Pressures", {
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            increment: true
+        },
+        lower_pressure: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         high_pressure: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        measurement_id: {
+        method_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
         }
     });
 
-    HighPressure.associate = (models) => {
-        HighPressure.hasOne(models.Methods, {
-            onDelete: "cascade",
-        });
-    };
-
-    return HighPressure;
+    return Pressure;
 };

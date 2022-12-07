@@ -25,19 +25,25 @@ function Methods () {
     const [pressureDescription, setPressureDescription] = useState("");
 
 
-    useEffect(() => {
-
+    function authh () {
+        console.log(user);
         const loggedInUser = localStorage.getItem("user");
         console.log(loggedInUser)
-        if (loggedInUser) {
-            const foundUser = JSON.parse(loggedInUser);
-            setUser(foundUser);
-            console.log(foundUser);
-        }
+        const foundUser = JSON.parse(loggedInUser);
+        setUser(foundUser)
+    };
+
+    useEffect(() => {
+        console.log(user);
+        const loggedInUser = localStorage.getItem("user");
+        console.log(loggedInUser)
+        const foundUser = JSON.parse(loggedInUser);
+        setUser(foundUser)
 
         if (localStorage.getItem("auth_token")) {
+            console.log(user)
             axios.post("http://localhost:8080/weight/method/all", {
-                data: { user_id: user.id },
+                data: { user_id: foundUser.id },
                 headers: {
                     auth_token: localStorage.getItem("auth_token"),
                 },
@@ -46,7 +52,7 @@ function Methods () {
             });
 
             axios.post("http://localhost:8080/pressure/method/all", {
-                data: { user_id: user.id },
+                data: { user_id: foundUser.id },
                 headers: {
                     auth_token: localStorage.getItem("auth_token"),
                 },
@@ -169,6 +175,7 @@ function Methods () {
                             ))) : null}
                         </tbody>
                     </Table>
+
 
                 </Row>
             </Container>

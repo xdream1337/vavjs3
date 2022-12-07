@@ -3,7 +3,7 @@ import { useLocation, Navigate } from "react-router-dom";
 
 const AuthContext = createContext(null);
 
-export const useAuth = () => useContext(AuthContext);
+export const useAuth = () => { return useContext(AuthContext) };
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
