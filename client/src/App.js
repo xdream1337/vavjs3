@@ -37,6 +37,7 @@ function App () {
 
         <Route element={<RequireAuth />}>
           <Route path="/methods" element={<Methods />} />
+          <Route path="/weights" element={<Weights />} />
         </Route>
 
       </Routes>
