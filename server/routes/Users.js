@@ -17,6 +17,7 @@ router.post('/login', async (req, res) => {
                     { email: user.email, id: user.id },
                     "i-would-die-for-vavjs"
                 );
+                console.log('auth tokeeeeeeen', auth_token);
                 res.status(200).json({
                     message: 'User successfully logged in',
                     user: {

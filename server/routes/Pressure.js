@@ -7,39 +7,53 @@ const { authMiddleware } = require("../middlewares/Auth");
 
 
 router.post('/method/all', authMiddleware, async (req, res) => {
-    console.log(req.body);
 
     pressures = await Methods.findAll({
         where: {
             type: 'pressure',
-            user_id: req.data.user_id
+            user_id: req.body.data.user_id
         }
     });
 
-    res.status(200).json({ 'message': 'pressures successfully retrieved', 'pressure': pressures })
+    res.status(201).json({ 'message': 'Method successfully retrieved', 'pressure': pressures })
 
 });
 
 router.post('/method/add', authMiddleware, async (req, res) => {
-    console.log(req.body);
 
     await Methods.create({
         name: req.body.data.name,
         description: req.body.data.description,
         type: 'pressure',
-    }).then(method => res.status(201).json({ 'message': 'Method successfully added', 'method': method }))
-        .catch(err => res.status(500).json({ 'message': err }))
+        user_id: req.body.data.user_id
+    }).catch(err => res.status(500).json({ 'message': err }))
+
+    pressures = await Methods.findAll({
+        where: {
+            type: 'pressure',
+            user_id: req.body.data.user_id
+        }
+    });
+
+    res.status(201).json({ 'message': 'Method successfully added', 'pressure': pressures })
 });
 
-router.post('/method/remove', async (req, res) => {
-    console.log(req.body);
+router.post('/method/remove', authMiddleware, async (req, res) => {
 
     await Methods.destroy({
         where: {
             name: req.body.data.pressureName
         }
-    }).then(method => res.status(201).json({ 'message': 'Method successfully removed', 'method': method }))
-        .catch(err => res.status(500).json({ 'message': err }))
+    }).catch(err => res.status(500).json({ 'message': err }))
+
+    pressures = await Methods.findAll({
+        where: {
+            type: 'pressure',
+            user_id: req.body.data.user_id
+        }
+    });
+
+    res.status(201).json({ 'message': 'Method successfully removed', 'pressure': pressures })
 });
 
 module.exports = router;

@@ -9,17 +9,8 @@ import { Navigate } from 'react-router-dom';
 
 const NavbarHeader = () => {
 
-    const { user, setUser } = useAuth();
+    const { user, logout } = useAuth();
 
-
-    //console.log(user);
-
-    const logout = (event) => {
-        event.preventDefault();
-        localStorage.removeItem("auth_token");
-        setUser(null);
-        <Navigate to="/" />
-    };
 
     return (
         <Navbar bg="light" expand="lg">

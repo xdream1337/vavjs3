@@ -12,8 +12,7 @@ import HighPressure from "./pages/HighPressure";
 import Login from "./pages/Login";
 
 import NavbarHeader from './components/navbar/navbarapp';
-
-import { AuthProvider, RequireAuth } from "./helpers/Auth";
+import RequireAuth from './components/RequireAuth';
 
 
 // Bootstrap CSS
@@ -36,10 +35,8 @@ function App () {
         <Route path="/register" element={<Register />} />
         <Route index path="/" element={<Login />} />
 
-        <Route path="/methods" element={<Methods />} />
-
         <Route element={<RequireAuth />}>
-          <Route path="/dashboard" element={<Home />} />
+          <Route path="/methods" element={<Methods />} />
         </Route>
 
       </Routes>

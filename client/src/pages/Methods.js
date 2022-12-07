@@ -9,7 +9,6 @@ import { Button, Container, Row, Table } from "react-bootstrap";
 
 function Methods () {
 
-
     const { user, setUser } = useAuth();
 
     const [weights, setWeight] = useState([]);
@@ -24,26 +23,10 @@ function Methods () {
     const [pressureName, setPressureName] = useState("");
     const [pressureDescription, setPressureDescription] = useState("");
 
-
-    function authh () {
-        console.log(user);
-        const loggedInUser = localStorage.getItem("user");
-        console.log(loggedInUser)
-        const foundUser = JSON.parse(loggedInUser);
-        setUser(foundUser)
-    };
-
     useEffect(() => {
-        console.log(user);
-        const loggedInUser = localStorage.getItem("user");
-        console.log(loggedInUser)
-        const foundUser = JSON.parse(loggedInUser);
-        setUser(foundUser)
-
         if (localStorage.getItem("auth_token")) {
-            console.log(user)
             axios.post("http://localhost:8080/weight/method/all", {
-                data: { user_id: foundUser.id },
+                data: { user_id: user.id },
                 headers: {
                     auth_token: localStorage.getItem("auth_token"),
                 },
@@ -52,7 +35,7 @@ function Methods () {
             });
 
             axios.post("http://localhost:8080/pressure/method/all", {
-                data: { user_id: foundUser.id },
+                data: { user_id: user.id },
                 headers: {
                     auth_token: localStorage.getItem("auth_token"),
                 },
@@ -64,7 +47,6 @@ function Methods () {
 
 
     async function sendNewWeight () {
-
         const data = { name: weightName, description: weightDescription, user_id: user.id };
         axios.post("http://localhost:8080/weight/method/add", {
             data: data,
@@ -75,7 +57,7 @@ function Methods () {
             if (response.data.error) {
                 alert(response.data.error);
             } else {
-                setWeight([...weights, response.data.weights]);
+                setWeight(response.data.weights);
                 showWeight(false);
                 alert('metoda vahy bola pridana');
             }
@@ -93,14 +75,13 @@ function Methods () {
             if (response.data.error) {
                 alert(response.data.error);
             } else {
-                setWeight([...weights, response.data.weights]);
+                setWeight(response.data.weights);
                 showWeight(false);
             }
         });
     }
 
     async function sendNewPressure () {
-
         const data = { name: pressureName, description: pressureDescription, user_id: user.id };
         axios.post("http://localhost:8080/pressure/method/add", {
             data: data,
@@ -111,7 +92,7 @@ function Methods () {
             if (response.data.error) {
                 alert(response.data.error);
             } else {
-                setPressure([...pressure, response.data.weights]);
+                setPressure(response.data.pressure);
                 showPressure(false);
                 alert('metoda tlaku bola pridana');
             }
@@ -120,7 +101,7 @@ function Methods () {
 
     async function removePressure (id) {
         const data = { pressure_id: id, user_id: user.id };
-        axios.post("http://localhost:8080/pressure/method/remove", {
+        await axios.post("http://localhost:8080/pressure/method/remove", {
             data: data,
             headers: {
                 auth_token: localStorage.getItem("auth_token"),
@@ -129,7 +110,7 @@ function Methods () {
             if (response.data.error) {
                 alert(response.data.error);
             } else {
-                setPressure([...pressure, response.data.pressure]);
+                setPressure(response.data.pressure);
                 showPressure(false);
             }
         });
@@ -214,8 +195,6 @@ function Methods () {
                     </Table>
                 </Row>
             </Container>
-
-
         </div>
     );
 }
