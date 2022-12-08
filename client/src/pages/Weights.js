@@ -84,7 +84,7 @@ function Weights () {
     }
 
     function filter () {
-        const data = { method: weightMethod, user_id: user.id, timefrom: timeFrom, timeto: timeTo };
+        const data = { method: methodFilter, user_id: user.id, timeFrom: timeFrom, timeTo: timeTo };
         axios.post("http://localhost:8080/weight/filter", {
             data: data,
             headers: {
