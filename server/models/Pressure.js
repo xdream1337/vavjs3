@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const Pressure = sequelize.define("Pressures", {
+    const Pressures = sequelize.define("Pressures", {
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -12,11 +12,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        method_id: {
-            type: DataTypes.INTEGER,
+        method: {
+            type: DataTypes.STRING,
             allowNull: false,
+        },
+        date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            format: 'YYYY-MM-DD'
         }
     });
 
-    return Pressure;
+    return Pressures;
 };

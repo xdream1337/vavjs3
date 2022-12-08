@@ -2,8 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
 
   const Users = sequelize.define("Users", {
-    birth_date: {
-      type: DataTypes.DATE,
+    age: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     email: {

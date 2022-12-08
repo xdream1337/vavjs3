@@ -14,9 +14,11 @@ app.use('/auth', require('./routes/Users'));
 app.use('/weight', require('./routes/Weight'));
 app.use('/pressure', require('./routes/Pressure'));
 
-app.get('*', function (request, response) {
-    response.sendFile(path.resolve(__dirname + '../../client/build', 'index.html'))
-})
+
+// fix cannot get /URL
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + '../../client/build/index.html'));
+});
 
 const db = require('./models')
 

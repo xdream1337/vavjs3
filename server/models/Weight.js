@@ -3,15 +3,19 @@ module.exports = (sequelize, DataTypes) => {
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            increment: true
         },
         weight: {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        method_id: {
-            type: DataTypes.INTEGER,
+        method: {
+            type: DataTypes.STRING,
             allowNull: false,
+        },
+        date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+            format: 'YYYY-MM-DD'
         }
     });
 
