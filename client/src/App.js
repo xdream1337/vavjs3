@@ -1,15 +1,12 @@
 import './App.css';
-import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useAuth } from "./helpers/Auth";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import Register from "./pages/Register";
 import Weights from "./pages/Weights";
 import Methods from "./pages/Methods";
-import LowPressure from "./pages/LowPressure";
-import HighPressure from "./pages/HighPressure";
+import Pressure from "./pages/Pressure";
 import Login from "./pages/Login";
+import Stats from "./pages/Stats";
 
 import NavbarHeader from './components/navbar/navbarapp';
 import RequireAuth from './components/RequireAuth';
@@ -38,6 +35,8 @@ function App () {
         <Route element={<RequireAuth />}>
           <Route path="/methods" element={<Methods />} />
           <Route path="/weights" element={<Weights />} />
+          <Route path="/pressure" element={<Pressure />} />
+          <Route path="/stats" element={<Stats />} />
         </Route>
 
       </Routes>
