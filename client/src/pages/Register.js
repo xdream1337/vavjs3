@@ -29,7 +29,7 @@ function Register () {
 
         axios.post("http://localhost:8080/auth/register", data).then(() => {
             alert('Ucet bol vytvoreny! Prihlaste sa prosim.');
-            <Navigate to="/" />
+            window.location.href = '/';
         });
     };
 

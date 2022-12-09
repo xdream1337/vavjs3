@@ -15,7 +15,7 @@ const NavbarHeader = () => {
     return (
         <Navbar bg="light" expand="lg">
             <Container>
-                <Navbar.Brand href="#home">Osobná kondícia</Navbar.Brand>
+                <Navbar.Brand href="/stats">Osobná kondícia</Navbar.Brand>
                 {user ? (
                     <Nav className="me-auto">
                         <Nav.Link href="/weights"> Meranie váhy</Nav.Link>

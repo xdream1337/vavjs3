@@ -13,7 +13,10 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (data) => {
         setUser(data);
-        navigate("/methods");
+
+        // todo: navigate admin to admin page
+        if (data.role === "admin") navigate("/admin");
+        navigate("/stats");
     }
 
     const logout = () => {

@@ -13,7 +13,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 
-function Login () {
+function AdminLogin () {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -22,7 +22,7 @@ function Login () {
 
     useEffect(() => {
         if (user) {
-            login(null);
+            setUser(null);
         }
     }, []);
 
@@ -30,13 +30,17 @@ function Login () {
         event.preventDefault();
         const data = { password: password, email: email };
         axios.post("http://localhost:8080/auth/login", data).then((response) => {
-            if (response.error) {
-                alert(response.error);
+            if (response.data.error) {
+                alert(response.data.error);
             } else {
                 localStorage.setItem("auth_token", response.data.auth_token);
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 login(response.data.user);
-                <Navigate to="/stats" />
+
+                if (response.data.user.role === 'admin')
+                    <Navigate to="/admin/dashboard" />
+                else
+                    <Navigate to="/" />
             }
         }).catch((error) => {
             alert('PRIHLÁSENIE SA NEPODARILO');
@@ -56,6 +60,7 @@ function Login () {
                                 setEmail(event.target.value);
                             }} />
                         </Form.Group>
+                        <p>default email: admin@admin.com</p>
 
                         <Form.Group className="mb-3" controlId="formBasicName">
                             <Form.Label>Heslo</Form.Label>
@@ -63,6 +68,8 @@ function Login () {
                                 setPassword(event.target.value);
                             }} />
                         </Form.Group>
+                        <p>default pass: admin</p>
+
 
                         <Button onClick={loginUser} variant="primary" type="submit">
                             Prihlásiť
@@ -72,17 +79,9 @@ function Login () {
 
             </Container>
 
-            <Container className="mt-5 text-center">
-                Pokiaľ sa chcete registrovať, <Link to="/register">zaregistrujte sa.</Link>
-            </Container>
-
-            <Container className="mt-5 text-center">
-                Admin rozhranie je dostupné na <Link to="/admin">/admin</Link>
-            </Container>
-
 
         </div>
     );
 }
 
-export default Login;
+export default AdminLogin;

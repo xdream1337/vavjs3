@@ -19,12 +19,6 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 
 
 function App () {
-
-  /*const login = () => {
-    localStorage.removeItem("auth_token");
-    setAuthState({ first_name: "", id: 0, status: false });
-  };*/
-
   return (
     <div className="root">
       <NavbarHeader />
@@ -37,10 +31,12 @@ function App () {
           <Route path="/weights" element={<Weights />} />
           <Route path="/pressure" element={<Pressure />} />
           <Route path="/stats" element={<Stats />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
         </Route>
 
       </Routes>
-    </div>
+    </div >
   );
 }
 

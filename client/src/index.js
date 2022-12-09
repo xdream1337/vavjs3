@@ -5,6 +5,9 @@ import './index.css';
 import App from './App';
 import { AuthProvider } from './helpers/Auth';
 
+
+// asi 5 hodin som debugoval, preco mi nefunguje user context po refreshi strank
+// a po prehodeni BrowserRouteru do AuthProvideru riadkov to zacalo fungovat :)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -17,6 +20,11 @@ root.render(
 
 );
 
+
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
+//pass that 100/100 google PSI score
+//reportWebVitals(console.log)
