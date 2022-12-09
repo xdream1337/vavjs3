@@ -9,7 +9,7 @@ const authMiddleware = (req, res, next) => {
     if (!auth_token) return res.json({ error: "Token not found!" });
 
     try {
-        const auth_tokenn = verify(auth_token, "i-would-die-for-vavjs");
+        const auth_tokenn = verify(auth_token, "virtual-dom-is-lit");
         req.user = auth_tokenn;
         if (auth_token) {
             return next();

@@ -144,4 +144,46 @@ router.post('/method/remove', authMiddleware, async (req, res) => {
 
 });
 
+/* import weights from csv */
+router.post('/import', authMiddleware, async (req, res) => {
+
+    let weights = req.body.data.weights
+
+    for (let i = 0; i < weights.length; i++) {
+        await Weights.create({
+            weight: weights[i].weight,
+            user_id: weights[i].user_id,
+            date: weights[i].date,
+            method: weights[i].method
+        }).catch(err => res.status(500).json({ 'message': err, name: req.body.data.weightName, description: req.body.data.weightDescription, type: 'weight' }))
+    }
+    weights = await Weights.findAll();
+    res.status(201).json({ 'message': 'Weights successfully imported', 'weights': weights })
+
+});
+
+/* export weights to csv */
+router.post('/export', authMiddleware, async (req, res) => {
+
+    let weights = await Weights.findAll({
+        where: {
+            user_id: req.body.data.user_id
+        },
+        order: [
+            ['date', 'DESC']
+        ]
+    });
+
+    /* create csv file */
+    let csv = 'weight,date,method\n'
+    for (let i = 0; i < weights.length; i++) {
+        csv += weights[i].weight + ',' + weights[i].date + ',' + weights[i].method + '\n'
+    }
+
+
+
+
+});
+
+
 module.exports = router;

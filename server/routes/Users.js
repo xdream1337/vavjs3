@@ -3,7 +3,6 @@ const router = express.Router();
 const { Users } = require('../models');
 const bcrypt = require('bcrypt');
 const { sign } = require("jsonwebtoken");
-
 const { authMiddleware } = require("../middlewares/Auth");
 
 router.post('/login', async (req, res) => {
@@ -15,9 +14,8 @@ router.post('/login', async (req, res) => {
             if (matches) {
                 const auth_token = sign(
                     { email: user.email, id: user.id },
-                    "i-would-die-for-vavjs"
+                    "virtual-dom-is-lit"
                 );
-                console.log('auth tokeeeeeeen', auth_token);
                 res.status(200).json({
                     message: 'User successfully logged in',
                     user: {
@@ -26,11 +24,12 @@ router.post('/login', async (req, res) => {
                         id: user.id,
                         height: user.height,
                         age: user.age,
+                        role: user.first_name == 'admin' ? 'admin' : 'user'
                     },
                     auth_token: auth_token
                 });
             } else {
-                res.status(502).json({
+                res.status(500).json({
                     message: 'Login failed'
                 });
             }
@@ -44,12 +43,18 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-    console.log(req.body)
+
+    user = await Users.findOne({ where: { email: req.body.email } });
+    if (user)
+        return res.status(500).json({
+            error: 'User already exists'
+        });
+
+
     await Users.create({
         first_name: req.body.first_name,
         password: bcrypt.hashSync(req.body.password, 13),
         height: req.body.height,
-        birth_date: req.body.birth_date,
         email: req.body.email,
         age: req.body.age
     })
@@ -68,8 +73,24 @@ router.post('/register', async (req, res) => {
         })))
 });
 
-router.get("/auth", authMiddleware, (req, res) => {
-    res.json(req.user);
+
+router.post('/users/all', authMiddleware, async (req, res) => {
+    /* send all users */
+    users = await Users.findAll();
+    res.status(200).json({ 'message': 'users successfully retrieved', 'users': users })
+});
+
+router.post('/users/remove', authMiddleware, async (req, res) => {
+    /* remove user with id */
+    await Users.destroy({
+        where: {
+            id: req.body.data.id
+        }
+    });
+
+    /* send all users */
+    users = await Users.findAll();
+    res.status(200).json({ 'message': 'user successfully removed', 'users': users })
 });
 
 module.exports = router;

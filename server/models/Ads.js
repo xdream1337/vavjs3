@@ -1,18 +1,20 @@
 module.exports = (sequelize, DataTypes) => {
-    const Ads = sequelize.define("Ads", {
-        ad_id: {
+    const Ad = sequelize.define("Ad", {
+        src: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: "#"
+        },
+        href: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: "#"
+        },
+        count: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            increment: true
-        },
-        img_url: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        text: {
-            type: DataTypes.STRING,
-            allowNull: false,
+            defaultValue: 0
         }
     });
-    return Ads;
+    return Ad;
 };

@@ -109,9 +109,7 @@ router.post('/filter', authMiddleware, async (req, res) => {
     args.user_id = req.body.data.user_id
 
     if (req.body.data.method) {
-        args.method = {
-            [Op.and]: req.body.data.method
-        }
+        args.method = req.body.data.method
     }
 
     if (req.body.data.timeTo) {
