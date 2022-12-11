@@ -180,9 +180,6 @@ router.post('/export', authMiddleware, async (req, res) => {
         csv += weights[i].weight + ',' + weights[i].date + ',' + weights[i].method + '\n'
     }
 
-
-
-
 });
 
 

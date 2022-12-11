@@ -74,13 +74,13 @@ router.post('/register', async (req, res) => {
 });
 
 
-router.post('/users/all', authMiddleware, async (req, res) => {
+router.get('/users/all', async (req, res) => {
     /* send all users */
     users = await Users.findAll();
     res.status(200).json({ 'message': 'users successfully retrieved', 'users': users })
 });
 
-router.post('/users/remove', authMiddleware, async (req, res) => {
+router.post('/user/remove', authMiddleware, async (req, res) => {
     /* remove user with id */
     await Users.destroy({
         where: {

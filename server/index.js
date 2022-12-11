@@ -13,6 +13,7 @@ app.use(express.static(__dirname + '../../client/build'));
 app.use('/auth', require('./routes/Users'));
 app.use('/weight', require('./routes/Weight'));
 app.use('/pressure', require('./routes/Pressure'));
+app.use('/ad', require('./routes/AdRoute'));
 
 
 // fix cannot get /URL
