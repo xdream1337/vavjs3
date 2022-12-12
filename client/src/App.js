@@ -7,6 +7,9 @@ import Methods from "./pages/Methods";
 import Pressure from "./pages/Pressure";
 import Login from "./pages/Login";
 import Stats from "./pages/Stats";
+import Admin from "./pages/AdminLogin";
+import Dashboard from "./pages/Dashboard";
+import Ad from './components/Ad';
 
 import NavbarHeader from './components/navbar/navbarapp';
 import RequireAuth from './components/RequireAuth';
@@ -22,19 +25,18 @@ function App () {
   return (
     <div className="root">
       <NavbarHeader />
+      <Ad />
       <Routes>
         <Route path="/register" element={<Register />} />
         <Route index path="/" element={<Login />} />
-
+        <Route path="/admin" element={<Admin />} />
         <Route element={<RequireAuth />}>
           <Route path="/methods" element={<Methods />} />
           <Route path="/weights" element={<Weights />} />
           <Route path="/pressure" element={<Pressure />} />
           <Route path="/stats" element={<Stats />} />
-          <Route path="/admin" element={<Admin />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
         </Route>
-
       </Routes>
     </div >
   );

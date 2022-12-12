@@ -25,7 +25,10 @@ router.post('/method/add', authMiddleware, async (req, res) => {
         description: req.body.data.description,
         type: 'pressure',
         user_id: req.body.data.user_id
-    }).catch(err => res.status(500).json({ 'message': err }))
+    }).catch(err => {
+        res.status(500).json({ 'message': err })
+        return;
+    })
 
     pressures = await Methods.findAll({
         where: {
@@ -64,7 +67,10 @@ router.post('/add', authMiddleware, async (req, res) => {
         user_id: req.body.data.user_id,
         date: req.body.data.date,
         method: req.body.data.method
-    }).catch(err => res.status(500).json({ 'message': err, name: req.body.data.pressureName, description: req.body.data.pressureDescription, type: 'pressure' }))
+    }).catch(err => {
+        res.status(500).json({ 'message': err, name: req.body.data.pressureName, description: req.body.data.pressureDescription, type: 'pressure' })
+        return;
+    })
 
     pressures = await Pressures.findAll();
 

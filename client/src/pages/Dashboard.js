@@ -22,6 +22,8 @@ function Dashboard () {
     const [src, setSrc] = useState("");
     const [href, setHref] = useState("");
     const [changeAd, setChangeAd] = useState(false);
+    const [addNewad, setaddNewad] = useState(false);
+    const [addUser, showaddUser] = useState(false);
 
     useEffect(() => {
         axios.get("http://localhost:8080/auth/users/all", {
@@ -31,6 +33,8 @@ function Dashboard () {
         }).then((response) => {
             setUsers(response.data.users);
         }).catch((error) => { console.log(error); })
+
+
 
         axios.get("http://localhost:8080/ad/get", {
             headers: {
@@ -75,7 +79,7 @@ function Dashboard () {
     }
 
 
-    async function changeAd () {
+    async function changeAdToServer () {
         const data = { href: href, src: src };
         axios.post("http://localhost:8080/ad/change", {
             data: data,
@@ -108,27 +112,29 @@ function Dashboard () {
 
             <Container>
                 <Row className="text-center my-5">
-                    <Button className="btn btn-primary my-2" onClick={() => showaddUser(true)}>Pridať meranie</Button>
+                    <Button className="btn btn-primary my-2" onClick={() => showaddUser(true)}>Pridať používateľa</Button>
 
                     <Table className="table table-striped">
                         <thead>
-                            {showaddUser ?
-                                <tr>
-                                    <th>Email</th>
-                                    <th>Heslo</th>
-                                    <th>Meno</th>
-                                    <th>Vek</th>
-                                    <th>Výška</th>
-                                    <th></th>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" name="email" className="form-control" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /></td>
-                                    <td><input type="text" name="password" className="form-control" placeholder="Heslo" value={password} onChange={e => setPassword(e.target.value)} /></td>
-                                    <td><input type="text" name="firstName" className="form-control" placeholder="Meno" value={firstName} onChange={e => setFirstName(e.target.value)} /></td>
-                                    <td><input type="number" name="age" className="form-control" placeholder="Vek" value={age} onChange={e => setAge(e.target.value)} /></td>
-                                    <td><input type="number" name="height" className="form-control" placeholder="Výška" value={height} onChange={e => setHeight(e.target.value)} /></td>
-                                    <td><button className="btn btn-success" onClick={() => addNewUser()}>Pridať</button></td>
-                                </tr>
+                            {addUser ?
+                                <>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Heslo</th>
+                                        <th>Meno</th>
+                                        <th>Vek</th>
+                                        <th>Výška</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="text" name="email" className="form-control" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} /></td>
+                                        <td><input type="text" name="password" className="form-control" placeholder="Heslo" value={password} onChange={e => setPassword(e.target.value)} /></td>
+                                        <td><input type="text" name="firstName" className="form-control" placeholder="Meno" value={firstName} onChange={e => setFirstName(e.target.value)} /></td>
+                                        <td><input type="number" name="age" className="form-control" placeholder="Vek" value={age} onChange={e => setAge(e.target.value)} /></td>
+                                        <td><input type="number" name="height" className="form-control" placeholder="Výška" value={height} onChange={e => setHeight(e.target.value)} /></td>
+                                        <td><button className="btn btn-success" onClick={() => addNewUser()}>Pridať</button></td>
+                                    </tr>
+                                </>
                                 : null}
                             <tr>
                                 <th>Email</th>
@@ -164,7 +170,7 @@ function Dashboard () {
 
             <Container>
                 <Row className="text-center my-5">
-                    <Button className="btn btn-primary my-2" onClick={() => showChangeAd(true)}>Zmeniť reklamu</Button>
+                    <Button className="btn btn-primary my-2" onClick={() => setaddNewad(true)}>Zmeniť reklamu</Button>
 
                     <Table className="table table-striped">
                         <thead>
@@ -173,7 +179,7 @@ function Dashboard () {
                                 <tr>
                                     <td><input type="text" name="href" id="href" value={href} onChange={e => setHref(e.target.value)} /></td>
                                     <td><input type="text" name="src" id="src" value={src} onChange={e => setSrc(e.target.value)} /></td>
-                                    <td><button className="btn btn-success" onClick={() => changeAd()}>Uložiť</button></td>
+                                    <td><button className="btn btn-success" onClick={() => changeAdToServer()}>Uložiť</button></td>
                                 </tr>
                                 : null}
 
@@ -184,11 +190,13 @@ function Dashboard () {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>{ad.href}</td>
-                                <td>{ad.src}</td>
-                                <td>{ad.count}</td>
-                            </tr>
+                            {ad != undefined && ad.href && ad.src ?
+                                <tr>
+                                    <td>{ad.href}</td>
+                                    <td>{ad.src}</td>
+                                    <td>{ad.count}</td>
+                                </tr>
+                                : null}
                         </tbody>
                     </Table>
 

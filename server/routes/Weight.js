@@ -155,7 +155,9 @@ router.post('/import', authMiddleware, async (req, res) => {
             user_id: weights[i].user_id,
             date: weights[i].date,
             method: weights[i].method
-        }).catch(err => res.status(500).json({ 'message': err, name: req.body.data.weightName, description: req.body.data.weightDescription, type: 'weight' }))
+        }).catch(err => {
+            return res.status(500).json({ 'message': err, name: req.body.data.weightName, description: req.body.data.weightDescription, type: 'weight' })
+        })
     }
     weights = await Weights.findAll();
     res.status(201).json({ 'message': 'Weights successfully imported', 'weights': weights })

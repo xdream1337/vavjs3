@@ -7,7 +7,6 @@ const { authMiddleware } = require("../middlewares/Auth");
 
 router.post('/change', authMiddleware, async (req, res) => {
 
-
     ad = await Ads.findOne();
 
     if (ad) {

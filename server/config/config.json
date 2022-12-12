@@ -3,7 +3,7 @@
     "username": "newuser",
     "password": "rootroot123!",
     "database": "express",
-    "host": "localhost",
+    "host": "db",
     "dialect": "mysql",
     "port": 3306
   },
@@ -11,14 +11,16 @@
     "username": "newuser",
     "password": "rootroot123!",
     "database": "express",
-    "host": "localhost",
-    "dialect": "mysql"
+    "host": "db",
+    "dialect": "mysql",
+    "port": 3306
   },
   "production": {
     "username": "newuser",
     "password": "rootroot123!",
     "database": "express",
-    "host": "localhost",
-    "dialect": "mysql"
+    "host": "db",
+    "dialect": "mysql",
+    "port": 3306
   }
 }

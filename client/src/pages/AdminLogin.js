@@ -20,11 +20,11 @@ function AdminLogin () {
 
     const { user, login } = useAuth();
 
-    useEffect(() => {
-        if (user) {
-            setUser(null);
+    /*useEffect(() => {
+        if (user.role !== 'admin') {
+            login(null);
         }
-    }, []);
+    }, []);*/
 
     const loginUser = (event) => {
         event.preventDefault();
@@ -37,10 +37,10 @@ function AdminLogin () {
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 login(response.data.user);
 
-                if (response.data.user.role === 'admin')
-                    <Navigate to="/admin/dashboard" />
+                if (response.data.user.role == 'admin')
+                    window.location.href = '/admin/dashboard';
                 else
-                    <Navigate to="/" />
+                    window.location.href = '/stats';
             }
         }).catch((error) => {
             alert('PRIHLÁSENIE SA NEPODARILO');

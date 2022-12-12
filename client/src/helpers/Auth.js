@@ -2,7 +2,9 @@ import { createContext, useContext, useMemo } from "react";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
-
+// toto mi zabralo asi 5 dni kym som pochopil ako to funguje a
+// ako to mam pouzit, ale nakoniec to funguje :)
+// nie je to moc najlepsie riesenie, ale stale sa pouzivaju JWT tokeny na middleware
 const AuthContext = createContext(null);
 
 export const useAuth = () => { return useContext(AuthContext) };
@@ -13,10 +15,6 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (data) => {
         setUser(data);
-
-        // todo: navigate admin to admin page
-        if (data.role === "admin") navigate("/admin");
-        navigate("/stats");
     }
 
     const logout = () => {

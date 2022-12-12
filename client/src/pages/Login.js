@@ -36,7 +36,7 @@ function Login () {
                 localStorage.setItem("auth_token", response.data.auth_token);
                 localStorage.setItem("user", JSON.stringify(response.data.user));
                 login(response.data.user);
-                <Navigate to="/stats" />
+                window.location.href = '/stats';
             }
         }).catch((error) => {
             alert('PRIHLÁSENIE SA NEPODARILO');
